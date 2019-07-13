@@ -15,6 +15,12 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Check the environment for DB_PATH, which can be used to override the location
+# where the sqlite database file is stored. This feature will be useful if this
+# application is running in a Docker container and the developer would like to
+# mount an external volume into the container for persistent storage.
+DB_PATH = os.getenv('DB_PATH', BASE_DIR)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -76,7 +82,7 @@ WSGI_APPLICATION = 'hlphoto.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(DB_PATH, 'db.sqlite3'),
     }
 }
 
@@ -105,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = os.getenv('TZ', 'America/Los_Angeles')
 
 USE_I18N = True
 
