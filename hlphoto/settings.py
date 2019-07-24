@@ -31,8 +31,9 @@ SECRET_KEY = 'g!h#-h&73p&u+0n*t49_kxbzh))l+o=ns)khrzj5jz%rdn8+2z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+GOOGLE_API_KEY = 'AIzaSyD--your-google-maps-key-SjQBE'
 
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gallery.apps.GalleryConfig',
+    'address',
 ]
 
 MIDDLEWARE = [
