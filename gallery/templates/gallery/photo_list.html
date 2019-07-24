@@ -1,0 +1,15 @@
+{% extends "gallery/base.html" %}
+
+{% block content %}
+  {% if photo_list %}
+  <ul>
+    {% for photo in photo_list %}
+      <li>
+        <a href="{{ photo.url }}">{{ photo.title }}</a> ({{photo.price}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no photos available</p>
+  {% endif %}
+{% endblock %}
