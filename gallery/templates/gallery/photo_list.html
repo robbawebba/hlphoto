@@ -2,11 +2,16 @@
 
 {% block content %}
   {% if photo_list %}
-  <ul>
+  <ul class="row">
     {% for photo in photo_list %}
-      <li>
-        <a href="{{ photo.url }}">{{ photo.title }}</a> ({{photo.price}})
-      </li>
+      <div class="card col-sm-3 col-md-4">
+        <img class="card-img-top" src="{{ photo.url }}" width="400" height="400" alt="{{ photo.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ photo.title }}</h5>
+          <p class="card-text">${{ photo.price }}</p>
+          <a href="{{ photo.get_absolute_url }}" class="btn btn-primary">Order Prints</a>
+        </div>
+      </div>
     {% endfor %}
   </ul>
   {% else %}

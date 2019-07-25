@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.urls import reverse
 from address.models import AddressField
 import uuid
 
@@ -14,6 +15,9 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('order-prints', args=[str(self.id)])
 
 # Order represents a unique purchase order of prints of a specific photo.
 class Order(models.Model):
