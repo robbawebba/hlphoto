@@ -25,3 +25,15 @@ different port number as the last argument to runserver:
 ```
 python3 manage.py runserver 8080
 ```
+
+## Generating Test Data
+
+The Gallery app comes with a `genphotos` managment command that allows
+users to add a variable number of photos to the database:
+```
+# Generates 200 photos
+python3 manage.py genphotos 200
+```
+
+Photo instances are created with a URL pointing to an image from
+https://picsum.photos.
