@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from gallery.models import Photo
+from gallery.models import Photo, Order
 from gallery.forms import OrderPrintsForm
 
 class PhotosList(generic.ListView):
@@ -17,15 +17,12 @@ def OrderPrints(request, key):
         # Create a form instance and populate it with data from the request (binding):
         form = OrderPrintsForm(request.POST)
 
-        # Check if the form is valid:
+        # Check if the form is valid, and complete data processing
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # TODO: How do I save the new Order and return the Order ID?
-            # redirect to a new URL?
             new_order = form.save(commit=False)
             new_order.total_cost = photo.price
             form.save()
-            return HttpResponseRedirect(reverse('photos'))
+            return HttpResponseRedirect(reverse('confirm', kwargs={'order_id':new_order.id}))
 
     # If this is a GET (or any other method) create the default form.
     else:
@@ -39,3 +36,6 @@ def OrderPrints(request, key):
     }
 
     return render(request, 'gallery/order_view.html', context)
+
+class OrderConfirmationView(generic.DetailView):
+    model = Order
