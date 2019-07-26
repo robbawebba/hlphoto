@@ -22,7 +22,7 @@ def OrderPrints(request, key):
             new_order = form.save(commit=False)
             new_order.total_cost = photo.price
             form.save()
-            return HttpResponseRedirect(reverse('confirm', kwargs={'order_id':new_order.id}))
+            return HttpResponseRedirect(reverse('confirm', kwargs={'pk':new_order.id}))
 
     # If this is a GET (or any other method) create the default form.
     else:
