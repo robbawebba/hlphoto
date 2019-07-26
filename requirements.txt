@@ -1,2 +1,4 @@
 Django>=2.0,<3.0
-django-address
+django-localflavor>=2.2
+django-phonenumber-field>=3.0.1
+phonenumbers

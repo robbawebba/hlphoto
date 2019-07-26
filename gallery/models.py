@@ -1,7 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.urls import reverse
-from address.models import AddressField
+from localflavor.us.models import USStateField, USZipCodeField
+from phonenumber_field.modelfields import PhoneNumberField
 import uuid
 
 # Photo represents a photo available for viewing and purchase in the Gallery
@@ -26,9 +27,21 @@ class Order(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
-    phone_validator = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number can contain up to 15 digits and must follow the following format: '+999999999'")
-    phone_number = models.CharField(validators=[phone_validator], max_length=17)
-    address = AddressField(on_delete='models.CASCADE')
+    phone_number = PhoneNumberField()
+    address_line_1 = models.CharField(max_length=200)
+    address_line_2 = models.CharField(max_length=200, blank=True)
+    city = models.CharField(max_length=64)
+    state = USStateField()
+    zip_code = USZipCodeField()
+
+    COUNTRIES = [
+        ('US', 'United States'),
+    ]
+    country = models.CharField(
+        max_length=2,
+        choices=COUNTRIES,
+        default='US',
+    )
 
     PRINT_SIZES = [
         ('4x6', '4\"x6\"'),
@@ -36,7 +49,6 @@ class Order(models.Model):
         ('8x10','8\"x10\"'),
         ('10x12', '10\"x12\"'),
     ]
-
     print_size = models.CharField(
         max_length=5,
         choices=PRINT_SIZES,

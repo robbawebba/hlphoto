@@ -5,3 +5,4 @@ class OrderPrintsForm(ModelForm):
     class Meta:
         model = Order
         exclude = ['id', 'photo', 'total_cost', 'shipping_cost']
+        
