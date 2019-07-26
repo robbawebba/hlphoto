@@ -34,7 +34,8 @@ def OrderPrints(request, key):
     context = {
         'form': form,
         'photo': photo,
-        'shipping_cost': 0, # Free shipping!
+        'shipping_cost': 0.00, # free shipping!
+        'total_cost': photo.price,
     }
 
     return render(request, 'gallery/order_view.html', context)
