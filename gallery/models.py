@@ -41,7 +41,6 @@ class Order(models.Model):
         max_length=5,
         choices=PRINT_SIZES,
         default='4x6',
-        help_text='Book availability',
     )
 
     shipping_cost = models.DecimalField(max_digits=8, decimal_places=2, default=0)
